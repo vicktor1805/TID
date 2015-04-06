@@ -12,10 +12,14 @@ namespace Interseccion_de_Puntos
 {
     public partial class Form1 : Form
     {
-        Pantallas pantallas;
+        private Pantallas pantallas;
+        private Operacion operacion;
+        private float[] resultado;
         public Form1()
         {
             pantallas = new Pantallas();
+            operacion = new Operacion();
+            resultado = new float[2];
             InitializeComponent();
         }
 
@@ -54,6 +58,9 @@ namespace Interseccion_de_Puntos
 
         private void btnTocaPantalla_Click(object sender, EventArgs e)
         {
+            bool tocaAlgunaPantalla = false;
+            int IndicePantalla = 0;
+
             if (txtXDatos.Text == "" ||
                txtYDatos.Text == "" ||
                txtIDatos.Text == "" ||
@@ -64,15 +71,23 @@ namespace Interseccion_de_Puntos
             }
             else
             {
-                // Cojer datos de los txtDatos
-                bool tocaAlgunaPantalla = false;
-                int IndicePantalla = 0;
-                // Hacer la formula de excel recorriendo la lista de pantallas
-                // si toca seteo true ^ y jalo su indice
+                float xDato = (float)Convert.ToDouble(txtXDatos.Text.ToString());
+                float yDato = (float)Convert.ToDouble(txtYDatos.Text.ToString());
+                float iDato = (float)Convert.ToDouble(txtIDatos.Text.ToString());
+                float jDato = (float)Convert.ToDouble(txtJDatos.Text.ToString());
+
+                operacion.agregarDatos(xDato, yDato, iDato, jDato);
+                tocaAlgunaPantalla = operacion.chocoPantalla(pantallas.ListaPantallas1);
+                resultado = operacion.ObtenerPuntoInterseccion();
+
                 if (tocaAlgunaPantalla == false)
-                    MessageBox.Show("No choca con ninguna pantalla");
+                {
+                    MessageBox.Show("No choca con ninguna pantalla. FUENTES!");
+                }
                 else
-                    MessageBox.Show("Choca con la pantalla " + IndicePantalla.ToString() + " en el punto x: xResultado.ToString yResultado.ToString");
+                {
+                    MessageBox.Show("Choca con la pantalla " + IndicePantalla.ToString() + " en el punto x: " + resultado[0].ToString() + "  y: " + resultado[1].ToString() + " .");
+                }
                 
             }
 

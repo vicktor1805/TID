@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace Interseccion_de_Puntos
 {
-    class Pantallas
+    public class Pantallas
     {
-        public List<float[]> ListaPantallas = new List<float[]>();
+        private List<float[]> ListaPantallas = new List<float[]>();
+
+        public List<float[]> ListaPantallas1
+        {
+            get { return ListaPantallas; }
+            set { ListaPantallas = value; }
+        }
 
         public void AgregarPantalla(float x, float y, float i, float j)
         {
